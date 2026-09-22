@@ -8,14 +8,14 @@ from fastapi import FastAPI
 from fastapi.responses import FileResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 
-from .clock import classify_session, hours_to_next_cash_open, now_ny
-from .paper import history, step
-from .risk import RiskConfig
+from clock import classify_session, hours_to_next_cash_open, now_ny
+from paper import history, step
+from risk import RiskConfig
 
 load_dotenv()
 
-ROOT = Path(__file__).resolve().parents[1]
-WEB = ROOT / "web"
+ROOT = Path(__file__).resolve().parent
+WEB = ROOT
 
 SYMBOLS = [s.strip().upper() for s in os.getenv("CALDER_SYMBOLS", "NVDA,TSLA,AAPL,MSFT,AMZN,META,AMD,QQQ").split(",") if s.strip()]
 CFG = RiskConfig(
@@ -25,14 +25,10 @@ CFG = RiskConfig(
 )
 
 app = FastAPI(title="Calder Split-Clock", version="1.0.0")
-if WEB.exists():
-    app.mount("/static", StaticFiles(directory=WEB), name="static")
-
 
 @app.get("/")
 def index():
     return FileResponse(WEB / "index.html")
-
 
 @app.get("/api/health")
 def health():
@@ -47,11 +43,9 @@ def health():
         "mode": os.getenv("CALDER_MODE", "paper"),
     }
 
-
 @app.get("/api/scan")
 def api_scan():
     return JSONResponse(step(SYMBOLS, CFG))
-
 
 @app.get("/api/log")
 def api_log(limit: int = 80):
