@@ -16,8 +16,8 @@ from __future__ import annotations
 from dataclasses import dataclass, asdict
 from typing import Any
 
-from .clock import Session, hours_to_next_cash_open
-from .data import Headline, Quote, Snapshot, WATCH
+from clock import Session, hours_to_next_cash_open
+from data import Headline, Quote, Snapshot, WATCH
 
 
 @dataclass
