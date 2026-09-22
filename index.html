@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Calder Split-Clock</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Newsreader:opsz,wght@6..72,400;6..72,600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #e8e0d0;
+      --muted: #9a917f;
+      --paper: #14110e;
+      --card: #1c1814;
+      --line: #2c261f;
+      --buy: #c4d7a4;
+      --sell: #d9a39a;
+      --wait: #8b8476;
+      --gold: #c9a56a;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: radial-gradient(1200px 600px at 10% -10%, #2a2218, var(--paper));
+      color: var(--ink);
+      font-family: "Newsreader", Georgia, serif;
+    }
+    header {
+      padding: 28px 28px 8px;
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+      border-bottom: 1px solid var(--line);
+    }
+    h1 { margin: 0; font-weight: 600; letter-spacing: .02em; font-size: 28px; }
+    h1 span { color: var(--gold); font-style: italic; }
+    .sub { color: var(--muted); font-family: "IBM Plex Mono", monospace; font-size: 12px; margin-top: 6px; }
+    button {
+      background: var(--gold);
+      color: #1a140c;
+      border: 0;
+      padding: 10px 16px;
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 12px;
+      cursor: pointer;
+    }
+    main { padding: 20px 28px 48px; max-width: 1180px; }
+    .grid { display: grid; grid-template-columns: 1.2fr .8fr; gap: 16px; }
+    @media (max-width: 900px) { .grid { grid-template-columns: 1fr; } }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      padding: 16px 18px;
+      margin-bottom: 16px;
+    }
+    .kvs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+    @media (max-width: 700px) { .kvs { grid-template-columns: repeat(2, 1fr); } }
+    .kv .l { font-family: "IBM Plex Mono", monospace; font-size: 10px; color: var(--muted); text-transform: uppercase; }
+    .kv .v { font-size: 20px; margin-top: 4px; }
+    table { width: 100%; border-collapse: collapse; font-family: "IBM Plex Mono", monospace; font-size: 12px; }
+    th { text-align: left; color: var(--muted); font-weight: 500; padding: 6px 4px; border-bottom: 1px solid var(--line); }
+    td { padding: 8px 4px; border-bottom: 1px solid #241f19; vertical-align: top; }
+    .BUY { color: var(--buy); }
+    .SELL { color: var(--sell); }
+    .NO_TRADE { color: var(--wait); }
+    .pill {
+      display: inline-block;
+      border: 1px solid var(--line);
+      padding: 2px 7px;
+      font-size: 10px;
+      color: var(--gold);
+      font-family: "IBM Plex Mono", monospace;
+    }
+    .reason { color: #cfc6b4; font-family: "Newsreader", serif; font-size: 14px; line-height: 1.35; }
+    footer { color: var(--muted); font-family: "IBM Plex Mono", monospace; font-size: 11px; padding: 0 28px 28px; }
+  </style>
+</head>
+<body>
+  <header>
+    <div>
+      <h1>Calder <span>Split-Clock</span></h1>
+      <div class="sub" id="meta">loading desk…</div>
+    </div>
+    <div>
+      <button onclick="runScan()">RUN ONE CYCLE</button>
+    </div>
+  </header>
+  <main>
+    <div class="card">
+      <div class="kvs" id="book"></div>
+    </div>
+    <div class="grid">
+      <div>
+        <div class="card">
+          <div class="pill">TICKETS THIS CYCLE</div>
+          <div id="tickets"></div>
+        </div>
+        <div class="card">
+          <div class="pill">HEADLINES IN THE ROOM</div>
+          <div id="news"></div>
+        </div>
+      </div>
+      <div>
+        <div class="card">
+          <div class="pill">OPEN BOOK</div>
+          <div id="open"></div>
+        </div>
+        <div class="card">
+          <div class="pill">LEDGER TAIL</div>
+          <div id="log"></div>
+        </div>
+      </div>
+    </div>
+  </main>
+  <footer>Wren Calder · paper desk · tokenized US stocks · two clocks, one gate · #BitgetHackathon</footer>
+  <script>
+    const $ = (id) => document.getElementById(id);
+    function money(n){ return (n<0?'-':'') + '$' + Math.abs(n).toFixed(2); }
+    async function boot(){
+      const h = await fetch('/api/health').then(r=>r.json());
+      $('meta').textContent = `${h.builder}  ·  ${h.ny}  ·  session ${h.session}  ·  cash open in ${h.hours_to_cash_open}h  ·  ${h.mode}`;
+      await refreshLog();
+    }
+    async function refreshLog(){
+      const data = await fetch('/api/log?limit=12').then(r=>r.json());
+      $('log').innerHTML = `<table><tr><th>type</th><th>sym</th><th>side</th><th>note</th></tr>${
+        (data.rows||[]).slice().reverse().map(r=>`<tr>
+          <td>${r.type||''}</td><td>${r.symbol||''}</td>
+          <td class="${r.side||''}">${r.side||r.exit_why||''}</td>
+          <td>${(r.reason||r.exit_why||r.reject_reason||'').slice(0,90)}</td>
+        </tr>`).join('')
+      }</table>`;
+    }
+    async function runScan(){
+      $('meta').textContent = 'scanning both clocks…';
+      const d = await fetch('/api/scan').then(r=>r.json());
+      $('meta').textContent = `${d.ny_time}  ·  ${d.session.label}  ·  liq ${d.session.liquidity}  ·  feed ${d.snapshot.source}`;
+      const b = d.book;
+      $('book').innerHTML = [
+        ['equity', money(b.equity)],
+        ['cash', money(b.cash)],
+        ['realized', money(b.realized_pnl)],
+        ['win rate', (b.win_rate*100).toFixed(0)+'%'],
+        ['open', b.open.length],
+        ['decisions', b.decisions],
+        ['accepted', b.accepted],
+        ['session', d.session.code],
+      ].map(([l,v])=>`<div class="kv"><div class="l">${l}</div><div class="v">${v}</div></div>`).join('');
+      $('tickets').innerHTML = `<table><tr><th>sym</th><th>side</th><th>regime</th><th>why</th></tr>${
+        d.tickets.map(t=>`<tr>
+          <td>${t.symbol}</td>
+          <td class="${t.side}">${t.accepted?t.side:'WAIT'}</td>
+          <td>${t.regime}</td>
+          <td class="reason">${t.reason}</td>
+        </tr>`).join('')
+      }</table>`;
+      $('news').innerHTML = `<table>${
+        d.snapshot.headlines.map(h=>`<tr><td class="pill">${h.kind}</td><td>${h.title}</td></tr>`).join('')
+      }</table>`;
+      $('open').innerHTML = b.open.length ? `<table><tr><th>sym</th><th>side</th><th>pnl</th></tr>${
+        b.open.map(p=>`<tr><td>${p.symbol}</td><td class="${p.side}">${p.side}</td><td>${p.pnl_pct}%</td></tr>`).join('')
+      }</table>` : '<div class="sub">flat. standing down is a position.</div>';
+      await refreshLog();
+    }
+    boot();
+  </script>
+</body>
+</html>

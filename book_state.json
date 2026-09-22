@@ -1,0 +1,52 @@
+{
+  "equity": 10003.83,
+  "cash": 6003.83,
+  "positions": [
+    {
+      "symbol": "TSLA",
+      "side": "BUY",
+      "qty_usd": 2000.0,
+      "entry": 251.99,
+      "stop_pct": 1.6,
+      "take_pct": 2.4,
+      "expire_hours": 3.0,
+      "regime": "INFO_PRICE",
+      "opened_at": "2026-09-22T12:07:07.984743+00:00"
+    },
+    {
+      "symbol": "META",
+      "side": "BUY",
+      "qty_usd": 2000.0,
+      "entry": 577.19,
+      "stop_pct": 1.6,
+      "take_pct": 2.4,
+      "expire_hours": 3.0,
+      "regime": "INFO_PRICE",
+      "opened_at": "2026-09-22T12:07:08.240887+00:00"
+    }
+  ],
+  "closed": [
+    {
+      "symbol": "NVDA",
+      "side": "SELL",
+      "qty_usd": 420,
+      "entry": 129.1,
+      "exit": 127.4,
+      "pnl_pct": 1.316,
+      "pnl_usd": 5.53,
+      "exit_why": "TAKE"
+    },
+    {
+      "symbol": "AMD",
+      "side": "BUY",
+      "qty_usd": 310,
+      "entry": 163.8,
+      "exit": 162.9,
+      "pnl_pct": -0.549,
+      "pnl_usd": -1.7,
+      "exit_why": "EXPIRED"
+    }
+  ],
+  "decisions": 14,
+  "accepted": 4
+}

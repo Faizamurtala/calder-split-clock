@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: calder-split-clock
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: CALDER_MODE
+        value: paper
+      - key: CALDER_EQUITY
+        value: "10000"

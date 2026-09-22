@@ -1,0 +1,590 @@
+{
+  "session": {
+    "code": "PRE",
+    "label": "US pre-market",
+    "cash_open": false,
+    "liquidity": "thin",
+    "default_hold_hours": 4,
+    "monday_gap_risk": false,
+    "note": "Partial discovery. Size down. News can gap into the open."
+  },
+  "ny_time": "2026-09-22 08:07 EDT",
+  "snapshot": {
+    "quotes": {
+      "NVDA": {
+        "symbol": "NVDA",
+        "price": 129.19,
+        "change_pct": 0.619,
+        "volume_ratio": 1.165,
+        "source": "replay-book",
+        "ts": "2026-09-22T12:07:05.783307+00:00"
+      },
+      "TSLA": {
+        "symbol": "TSLA",
+        "price": 251.99,
+        "change_pct": 1.569,
+        "volume_ratio": 0.504,
+        "source": "replay-book",
+        "ts": "2026-09-22T12:07:05.783307+00:00"
+      },
+      "AAPL": {
+        "symbol": "AAPL",
+        "price": 227.2,
+        "change_pct": -0.613,
+        "volume_ratio": 0.532,
+        "source": "replay-book",
+        "ts": "2026-09-22T12:07:05.783307+00:00"
+      },
+      "MSFT": {
+        "symbol": "MSFT",
+        "price": 428.81,
+        "change_pct": 0.141,
+        "volume_ratio": 0.654,
+        "source": "replay-book",
+        "ts": "2026-09-22T12:07:05.783307+00:00"
+      },
+      "AMZN": {
+        "symbol": "AMZN",
+        "price": 197.24,
+        "change_pct": -0.584,
+        "volume_ratio": 0.871,
+        "source": "replay-book",
+        "ts": "2026-09-22T12:07:05.783307+00:00"
+      },
+      "META": {
+        "symbol": "META",
+        "price": 577.19,
+        "change_pct": 0.908,
+        "volume_ratio": 0.915,
+        "source": "replay-book",
+        "ts": "2026-09-22T12:07:05.783307+00:00"
+      },
+      "AMD": {
+        "symbol": "AMD",
+        "price": 164.59,
+        "change_pct": 0.177,
+        "volume_ratio": 0.737,
+        "source": "replay-book",
+        "ts": "2026-09-22T12:07:05.783307+00:00"
+      },
+      "QQQ": {
+        "symbol": "QQQ",
+        "price": 494.42,
+        "change_pct": 0.328,
+        "volume_ratio": 0.585,
+        "source": "replay-book",
+        "ts": "2026-09-22T12:07:05.783307+00:00"
+      }
+    },
+    "headlines": [
+      {
+        "title": "Shopify Embraces Meta\u2019s Muse Across All Stores as Amazon Blocks It \u2013 and the Merchant Landscape Splits in Two",
+        "source": "Yahoo! Finance: NVDA TSLA AAPL MSFT AMZN META AMD QQQ News",
+        "published": "Tue, 22 Sep 2026 11:34:01 +0000",
+        "symbols": [
+          "AMZN",
+          "META"
+        ],
+        "kind": "unknown"
+      },
+      {
+        "title": "Stocks climb as oil slides, AI buzz returns",
+        "source": "Yahoo! Finance: NVDA TSLA AAPL MSFT AMZN META AMD QQQ News",
+        "published": "Tue, 22 Sep 2026 11:27:29 +0000",
+        "symbols": [],
+        "kind": "unknown"
+      },
+      {
+        "title": "AMD Just Joined the $1 Trillion Club. Here's Why Investors Are Betting Big on the Chipmaker.",
+        "source": "Yahoo! Finance: NVDA TSLA AAPL MSFT AMZN META AMD QQQ News",
+        "published": "Tue, 22 Sep 2026 11:25:01 +0000",
+        "symbols": [
+          "AMD"
+        ],
+        "kind": "product"
+      },
+      {
+        "title": "Where Will QQQ Be in 20 Years? Here's What the Nasdaq-100's Historical Growth Rate Suggests.",
+        "source": "Yahoo! Finance: NVDA TSLA AAPL MSFT AMZN META AMD QQQ News",
+        "published": "Tue, 22 Sep 2026 11:20:00 +0000",
+        "symbols": [
+          "QQQ",
+          "NVDA",
+          "AMD"
+        ],
+        "kind": "macro"
+      },
+      {
+        "title": "Beyond Meta, Cathie Wood\u2019s ARKG Loads Up On These 4 Biotech Names",
+        "source": "Yahoo! Finance: NVDA TSLA AAPL MSFT AMZN META AMD QQQ News",
+        "published": "Tue, 22 Sep 2026 11:10:05 +0000",
+        "symbols": [
+          "META",
+          "QQQ",
+          "NVDA",
+          "AMD"
+        ],
+        "kind": "unknown"
+      },
+      {
+        "title": "The Biggest Trade If the Democrats Win Back the House and Senate in November's Mid-Term Elections: Short Artificial Intelligence (AI) Data Centers",
+        "source": "Yahoo! Finance: NVDA TSLA AAPL MSFT AMZN META AMD QQQ News",
+        "published": "Tue, 22 Sep 2026 11:05:00 +0000",
+        "symbols": [],
+        "kind": "unknown"
+      },
+      {
+        "title": "Meta deal will help plastics recycling startup MacroCycle build its first factory",
+        "source": "Yahoo! Finance: NVDA TSLA AAPL MSFT AMZN META AMD QQQ News",
+        "published": "Tue, 22 Sep 2026 11:00:00 +0000",
+        "symbols": [
+          "META"
+        ],
+        "kind": "unknown"
+      },
+      {
+        "title": "Meta\u2019s Muse Overtakes ChatGPT as #1 iOS App \u2013 and the Market Just Priced In the Agent-Native Consumer Shift",
+        "source": "Yahoo! Finance: NVDA TSLA AAPL MSFT AMZN META AMD QQQ News",
+        "published": "Tue, 22 Sep 2026 10:39:03 +0000",
+        "symbols": [
+          "META"
+        ],
+        "kind": "product"
+      },
+      {
+        "title": "United States Integrated Circuits Market to Reach US$330 Billion by 2035 as AI and Domestic Manufacturing Accelerate Growth",
+        "source": "Yahoo! Finance: NVDA TSLA AAPL MSFT AMZN META AMD QQQ News",
+        "published": "Tue, 22 Sep 2026 11:49:00 +0000",
+        "symbols": [],
+        "kind": "macro"
+      },
+      {
+        "title": "Coca-Cola's \u201c$10 Billion\u201d Investment Announcement Is Smaller Than It Sounds. Here's the Math.",
+        "source": "Yahoo! Finance: NVDA TSLA AAPL MSFT AMZN META AMD QQQ News",
+        "published": "Tue, 22 Sep 2026 11:35:01 +0000",
+        "symbols": [],
+        "kind": "unknown"
+      },
+      {
+        "title": "U.S. Treasury Yields Fall as Fed Regains Trust, BOE Leaves Rates Unchanged - WSJ",
+        "source": "WSJ",
+        "published": "Tue, 22 Sep 2026 09:28:24 GMT",
+        "symbols": [
+          "QQQ"
+        ],
+        "kind": "macro"
+      },
+      {
+        "title": "What does the first Fed rate increase in three years mean for Oklahoma? - The Oklahoman",
+        "source": "The Oklahoman",
+        "published": "Tue, 22 Sep 2026 10:30:00 GMT",
+        "symbols": [
+          "QQQ"
+        ],
+        "kind": "macro"
+      }
+    ],
+    "btc_change_pct": 0.514,
+    "qqq_change_pct": 0.328,
+    "source": "replay-book",
+    "generated_at": "2026-09-22T12:07:07.983833+00:00"
+  },
+  "verdicts": [
+    {
+      "symbol": "TSLA",
+      "side": "BUY",
+      "regime": "INFO_PRICE",
+      "confidence": 0.5,
+      "size_pct": 0.55,
+      "reason": "Cash is closed. TSLA moved +1.57% with a live macro headline and residual +1.11% vs QQQ. This is the 7x24 job.",
+      "contra": "Any fresh opposing headline or a cash-open gap against the ticket.",
+      "expire_hours": 3.0,
+      "gates": {
+        "cash_closed": true,
+        "has_catalyst": true,
+        "volume_ok": true,
+        "not_just_btc": true,
+        "move_exists": true,
+        "not_open_trap": true,
+        "residual_real": true
+      },
+      "headline": "Where Will QQQ Be in 20 Years? Here's What the Nasdaq-100's Historical Growth Rate Suggests."
+    },
+    {
+      "symbol": "META",
+      "side": "BUY",
+      "regime": "INFO_PRICE",
+      "confidence": 0.5,
+      "size_pct": 0.55,
+      "reason": "Cash is closed. META moved +0.91% with a live product headline and residual +0.50% vs QQQ. This is the 7x24 job.",
+      "contra": "Any fresh opposing headline or a cash-open gap against the ticket.",
+      "expire_hours": 3.0,
+      "gates": {
+        "cash_closed": true,
+        "has_catalyst": true,
+        "volume_ok": true,
+        "not_just_btc": true,
+        "move_exists": true,
+        "not_open_trap": true,
+        "residual_real": true
+      },
+      "headline": "Meta\u2019s Muse Overtakes ChatGPT as #1 iOS App \u2013 and the Market Just Priced In the Agent-Native Consumer Shift"
+    },
+    {
+      "symbol": "NVDA",
+      "side": "NO_TRADE",
+      "regime": "TAPE_NOISE",
+      "confidence": 0.25,
+      "size_pct": 0.0,
+      "reason": "Headline and tape disagree, or book is too thin (vol ratio 1.17). Fade temptation.",
+      "contra": "Any fresh opposing headline or a cash-open gap against the ticket.",
+      "expire_hours": 4,
+      "gates": {
+        "cash_closed": true,
+        "has_catalyst": true,
+        "volume_ok": true,
+        "not_just_btc": true,
+        "move_exists": true,
+        "not_open_trap": true,
+        "residual_real": false
+      },
+      "headline": "Where Will QQQ Be in 20 Years? Here's What the Nasdaq-100's Historical Growth Rate Suggests."
+    },
+    {
+      "symbol": "AAPL",
+      "side": "NO_TRADE",
+      "regime": "TAPE_NOISE",
+      "confidence": 0.25,
+      "size_pct": 0.0,
+      "reason": "Headline and tape disagree, or book is too thin (vol ratio 0.53). Fade temptation.",
+      "contra": "Any fresh opposing headline or a cash-open gap against the ticket.",
+      "expire_hours": 4,
+      "gates": {
+        "cash_closed": true,
+        "has_catalyst": true,
+        "volume_ok": true,
+        "not_just_btc": true,
+        "move_exists": true,
+        "not_open_trap": true,
+        "residual_real": true
+      },
+      "headline": "Where Will QQQ Be in 20 Years? Here's What the Nasdaq-100's Historical Growth Rate Suggests."
+    },
+    {
+      "symbol": "MSFT",
+      "side": "NO_TRADE",
+      "regime": "TAPE_NOISE",
+      "confidence": 0.25,
+      "size_pct": 0.0,
+      "reason": "MSFT +0.14% with no usable catalyst in this session (PRE).",
+      "contra": "Any fresh opposing headline or a cash-open gap against the ticket.",
+      "expire_hours": 4,
+      "gates": {
+        "cash_closed": true,
+        "has_catalyst": true,
+        "volume_ok": true,
+        "not_just_btc": true,
+        "move_exists": false,
+        "not_open_trap": true,
+        "residual_real": false
+      },
+      "headline": "Where Will QQQ Be in 20 Years? Here's What the Nasdaq-100's Historical Growth Rate Suggests."
+    },
+    {
+      "symbol": "AMZN",
+      "side": "NO_TRADE",
+      "regime": "TAPE_NOISE",
+      "confidence": 0.25,
+      "size_pct": 0.0,
+      "reason": "AMZN -0.58% with no usable catalyst in this session (PRE).",
+      "contra": "Any fresh opposing headline or a cash-open gap against the ticket.",
+      "expire_hours": 4,
+      "gates": {
+        "cash_closed": true,
+        "has_catalyst": false,
+        "volume_ok": true,
+        "not_just_btc": true,
+        "move_exists": true,
+        "not_open_trap": true,
+        "residual_real": true
+      },
+      "headline": "Shopify Embraces Meta\u2019s Muse Across All Stores as Amazon Blocks It \u2013 and the Merchant Landscape Splits in Two"
+    },
+    {
+      "symbol": "AMD",
+      "side": "NO_TRADE",
+      "regime": "TAPE_NOISE",
+      "confidence": 0.25,
+      "size_pct": 0.0,
+      "reason": "AMD +0.18% with no usable catalyst in this session (PRE).",
+      "contra": "Any fresh opposing headline or a cash-open gap against the ticket.",
+      "expire_hours": 4,
+      "gates": {
+        "cash_closed": true,
+        "has_catalyst": true,
+        "volume_ok": true,
+        "not_just_btc": true,
+        "move_exists": false,
+        "not_open_trap": true,
+        "residual_real": true
+      },
+      "headline": "Where Will QQQ Be in 20 Years? Here's What the Nasdaq-100's Historical Growth Rate Suggests."
+    },
+    {
+      "symbol": "QQQ",
+      "side": "NO_TRADE",
+      "regime": "TAPE_NOISE",
+      "confidence": 0.25,
+      "size_pct": 0.0,
+      "reason": "QQQ +0.33% with no usable catalyst in this session (PRE).",
+      "contra": "Any fresh opposing headline or a cash-open gap against the ticket.",
+      "expire_hours": 4,
+      "gates": {
+        "cash_closed": true,
+        "has_catalyst": true,
+        "volume_ok": true,
+        "not_just_btc": true,
+        "move_exists": false,
+        "not_open_trap": true,
+        "residual_real": false
+      },
+      "headline": "Where Will QQQ Be in 20 Years? Here's What the Nasdaq-100's Historical Growth Rate Suggests."
+    }
+  ],
+  "tickets": [
+    {
+      "symbol": "TSLA",
+      "side": "BUY",
+      "qty_usd": 2000.0,
+      "stop_pct": 1.6,
+      "take_pct": 2.4,
+      "expire_hours": 3.0,
+      "regime": "INFO_PRICE",
+      "reason": "Cash is closed. TSLA moved +1.57% with a live macro headline and residual +1.11% vs QQQ. This is the 7x24 job.",
+      "contra": "Any fresh opposing headline or a cash-open gap against the ticket.",
+      "confidence": 0.5,
+      "accepted": true,
+      "reject_reason": "",
+      "headline": "Where Will QQQ Be in 20 Years? Here's What the Nasdaq-100's Historical Growth Rate Suggests.",
+      "gates": {
+        "cash_closed": true,
+        "has_catalyst": true,
+        "volume_ok": true,
+        "not_just_btc": true,
+        "move_exists": true,
+        "not_open_trap": true,
+        "residual_real": true
+      },
+      "llm_used": false
+    },
+    {
+      "symbol": "META",
+      "side": "BUY",
+      "qty_usd": 2000.0,
+      "stop_pct": 1.6,
+      "take_pct": 2.4,
+      "expire_hours": 3.0,
+      "regime": "INFO_PRICE",
+      "reason": "Cash is closed. META moved +0.91% with a live product headline and residual +0.50% vs QQQ. This is the 7x24 job.",
+      "contra": "Any fresh opposing headline or a cash-open gap against the ticket.",
+      "confidence": 0.5,
+      "accepted": true,
+      "reject_reason": "",
+      "headline": "Meta\u2019s Muse Overtakes ChatGPT as #1 iOS App \u2013 and the Market Just Priced In the Agent-Native Consumer Shift",
+      "gates": {
+        "cash_closed": true,
+        "has_catalyst": true,
+        "volume_ok": true,
+        "not_just_btc": true,
+        "move_exists": true,
+        "not_open_trap": true,
+        "residual_real": true
+      },
+      "llm_used": false
+    },
+    {
+      "symbol": "NVDA",
+      "side": "NO_TRADE",
+      "qty_usd": 0.0,
+      "stop_pct": 1.6,
+      "take_pct": 2.4,
+      "expire_hours": 4,
+      "regime": "TAPE_NOISE",
+      "reason": "Headline and tape disagree, or book is too thin (vol ratio 1.17). Fade temptation.",
+      "contra": "Any fresh opposing headline or a cash-open gap against the ticket.",
+      "confidence": 0.25,
+      "accepted": false,
+      "reject_reason": "Signal said stand down.",
+      "headline": "Where Will QQQ Be in 20 Years? Here's What the Nasdaq-100's Historical Growth Rate Suggests.",
+      "gates": {
+        "cash_closed": true,
+        "has_catalyst": true,
+        "volume_ok": true,
+        "not_just_btc": true,
+        "move_exists": true,
+        "not_open_trap": true,
+        "residual_real": false
+      },
+      "llm_used": false
+    },
+    {
+      "symbol": "AAPL",
+      "side": "NO_TRADE",
+      "qty_usd": 0.0,
+      "stop_pct": 1.6,
+      "take_pct": 2.4,
+      "expire_hours": 4,
+      "regime": "TAPE_NOISE",
+      "reason": "Headline and tape disagree, or book is too thin (vol ratio 0.53). Fade temptation.",
+      "contra": "Any fresh opposing headline or a cash-open gap against the ticket.",
+      "confidence": 0.25,
+      "accepted": false,
+      "reject_reason": "Signal said stand down.",
+      "headline": "Where Will QQQ Be in 20 Years? Here's What the Nasdaq-100's Historical Growth Rate Suggests.",
+      "gates": {
+        "cash_closed": true,
+        "has_catalyst": true,
+        "volume_ok": true,
+        "not_just_btc": true,
+        "move_exists": true,
+        "not_open_trap": true,
+        "residual_real": true
+      },
+      "llm_used": false
+    },
+    {
+      "symbol": "MSFT",
+      "side": "NO_TRADE",
+      "qty_usd": 0.0,
+      "stop_pct": 1.6,
+      "take_pct": 2.4,
+      "expire_hours": 4,
+      "regime": "TAPE_NOISE",
+      "reason": "MSFT +0.14% with no usable catalyst in this session (PRE).",
+      "contra": "Any fresh opposing headline or a cash-open gap against the ticket.",
+      "confidence": 0.25,
+      "accepted": false,
+      "reject_reason": "Signal said stand down.",
+      "headline": "Where Will QQQ Be in 20 Years? Here's What the Nasdaq-100's Historical Growth Rate Suggests.",
+      "gates": {
+        "cash_closed": true,
+        "has_catalyst": true,
+        "volume_ok": true,
+        "not_just_btc": true,
+        "move_exists": false,
+        "not_open_trap": true,
+        "residual_real": false
+      },
+      "llm_used": false
+    },
+    {
+      "symbol": "AMZN",
+      "side": "NO_TRADE",
+      "qty_usd": 0.0,
+      "stop_pct": 1.6,
+      "take_pct": 2.4,
+      "expire_hours": 4,
+      "regime": "TAPE_NOISE",
+      "reason": "AMZN -0.58% with no usable catalyst in this session (PRE).",
+      "contra": "Any fresh opposing headline or a cash-open gap against the ticket.",
+      "confidence": 0.25,
+      "accepted": false,
+      "reject_reason": "Signal said stand down.",
+      "headline": "Shopify Embraces Meta\u2019s Muse Across All Stores as Amazon Blocks It \u2013 and the Merchant Landscape Splits in Two",
+      "gates": {
+        "cash_closed": true,
+        "has_catalyst": false,
+        "volume_ok": true,
+        "not_just_btc": true,
+        "move_exists": true,
+        "not_open_trap": true,
+        "residual_real": true
+      },
+      "llm_used": false
+    },
+    {
+      "symbol": "AMD",
+      "side": "NO_TRADE",
+      "qty_usd": 0.0,
+      "stop_pct": 1.6,
+      "take_pct": 2.4,
+      "expire_hours": 4,
+      "regime": "TAPE_NOISE",
+      "reason": "AMD +0.18% with no usable catalyst in this session (PRE).",
+      "contra": "Any fresh opposing headline or a cash-open gap against the ticket.",
+      "confidence": 0.25,
+      "accepted": false,
+      "reject_reason": "Signal said stand down.",
+      "headline": "Where Will QQQ Be in 20 Years? Here's What the Nasdaq-100's Historical Growth Rate Suggests.",
+      "gates": {
+        "cash_closed": true,
+        "has_catalyst": true,
+        "volume_ok": true,
+        "not_just_btc": true,
+        "move_exists": false,
+        "not_open_trap": true,
+        "residual_real": true
+      },
+      "llm_used": false
+    },
+    {
+      "symbol": "QQQ",
+      "side": "NO_TRADE",
+      "qty_usd": 0.0,
+      "stop_pct": 1.6,
+      "take_pct": 2.4,
+      "expire_hours": 4,
+      "regime": "TAPE_NOISE",
+      "reason": "QQQ +0.33% with no usable catalyst in this session (PRE).",
+      "contra": "Any fresh opposing headline or a cash-open gap against the ticket.",
+      "confidence": 0.25,
+      "accepted": false,
+      "reject_reason": "Signal said stand down.",
+      "headline": "Where Will QQQ Be in 20 Years? Here's What the Nasdaq-100's Historical Growth Rate Suggests.",
+      "gates": {
+        "cash_closed": true,
+        "has_catalyst": true,
+        "volume_ok": true,
+        "not_just_btc": true,
+        "move_exists": false,
+        "not_open_trap": true,
+        "residual_real": false
+      },
+      "llm_used": false
+    }
+  ],
+  "book": {
+    "equity": 10003.83,
+    "cash": 6003.83,
+    "open": [
+      {
+        "symbol": "TSLA",
+        "side": "BUY",
+        "qty_usd": 2000.0,
+        "entry": 251.99,
+        "stop_pct": 1.6,
+        "take_pct": 2.4,
+        "expire_hours": 3.0,
+        "regime": "INFO_PRICE",
+        "opened_at": "2026-09-22T12:07:07.984743+00:00"
+      },
+      {
+        "symbol": "META",
+        "side": "BUY",
+        "qty_usd": 2000.0,
+        "entry": 577.19,
+        "stop_pct": 1.6,
+        "take_pct": 2.4,
+        "expire_hours": 3.0,
+        "regime": "INFO_PRICE",
+        "opened_at": "2026-09-22T12:07:08.240887+00:00"
+      }
+    ],
+    "closed_n": 2,
+    "wins": 1,
+    "win_rate": 0.5,
+    "realized_pnl": 3.83,
+    "decisions": 14,
+    "accepted": 4
+  }
+}
