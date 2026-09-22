@@ -6,11 +6,15 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any
 
-from .clock import classify_session, now_ny
-from .data import fetch_snapshot, snapshot_dict
-from .llm import polish
-from .risk import RiskConfig, build_ticket, ticket_dict
-from .signals import scan, verdict_dict
+from clock import classify_session, now_ny
+from data import fetch_snapshot, snapshot_dict
+from llm import polish
+from risk import RiskConfig, build_ticket, ticket_dict
+from signals import scan, verdict_dict
+
+ROOT = Path(__file__).resolve().parent
+LOG = ROOT / "paper_log.jsonl"
+STATE = ROOT / "book_state.json"
 
 ROOT = Path(__file__).resolve().parents[1]
 LOG = ROOT / "data" / "paper_log.jsonl"
