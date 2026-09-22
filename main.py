@@ -8,7 +8,7 @@ from fastapi import FastAPI
 from fastapi.responses import FileResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 
-from clock import classify_session, hours_to_next_cash_open, now_ny
+from clock import Session, hours_to_next_cash_open
 from paper import history, step
 from risk import RiskConfig
 
