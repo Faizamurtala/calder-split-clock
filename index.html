@@ -1,169 +1,492 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Calder Split-Clock</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Newsreader:opsz,wght@6..72,400;6..72,600&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --ink: #e8e0d0;
-      --muted: #9a917f;
-      --paper: #14110e;
-      --card: #1c1814;
-      --line: #2c261f;
-      --buy: #c4d7a4;
-      --sell: #d9a39a;
-      --wait: #8b8476;
-      --gold: #c9a56a;
-    }
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      background: radial-gradient(1200px 600px at 10% -10%, #2a2218, var(--paper));
-      color: var(--ink);
-      font-family: "Newsreader", Georgia, serif;
-    }
-    header {
-      padding: 28px 28px 8px;
-      display: flex;
-      justify-content: space-between;
-      gap: 16px;
-      flex-wrap: wrap;
-      border-bottom: 1px solid var(--line);
-    }
-    h1 { margin: 0; font-weight: 600; letter-spacing: .02em; font-size: 28px; }
-    h1 span { color: var(--gold); font-style: italic; }
-    .sub { color: var(--muted); font-family: "IBM Plex Mono", monospace; font-size: 12px; margin-top: 6px; }
-    button {
-      background: var(--gold);
-      color: #1a140c;
-      border: 0;
-      padding: 10px 16px;
-      font-family: "IBM Plex Mono", monospace;
-      font-size: 12px;
-      cursor: pointer;
-    }
-    main { padding: 20px 28px 48px; max-width: 1180px; }
-    .grid { display: grid; grid-template-columns: 1.2fr .8fr; gap: 16px; }
-    @media (max-width: 900px) { .grid { grid-template-columns: 1fr; } }
-    .card {
-      background: var(--card);
-      border: 1px solid var(--line);
-      padding: 16px 18px;
-      margin-bottom: 16px;
-    }
-    .kvs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
-    @media (max-width: 700px) { .kvs { grid-template-columns: repeat(2, 1fr); } }
-    .kv .l { font-family: "IBM Plex Mono", monospace; font-size: 10px; color: var(--muted); text-transform: uppercase; }
-    .kv .v { font-size: 20px; margin-top: 4px; }
-    table { width: 100%; border-collapse: collapse; font-family: "IBM Plex Mono", monospace; font-size: 12px; }
-    th { text-align: left; color: var(--muted); font-weight: 500; padding: 6px 4px; border-bottom: 1px solid var(--line); }
-    td { padding: 8px 4px; border-bottom: 1px solid #241f19; vertical-align: top; }
-    .BUY { color: var(--buy); }
-    .SELL { color: var(--sell); }
-    .NO_TRADE { color: var(--wait); }
-    .pill {
-      display: inline-block;
-      border: 1px solid var(--line);
-      padding: 2px 7px;
-      font-size: 10px;
-      color: var(--gold);
-      font-family: "IBM Plex Mono", monospace;
-    }
-    .reason { color: #cfc6b4; font-family: "Newsreader", serif; font-size: 14px; line-height: 1.35; }
-    footer { color: var(--muted); font-family: "IBM Plex Mono", monospace; font-size: 11px; padding: 0 28px 28px; }
-  </style>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Calder Split-Clock</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,8..72,500;0,8..72,650;1,8..72,500&display=swap" rel="stylesheet"/>
+<style>
+  :root{--bg:#07090c;--panel:#10141a;--ink:#e6edf4;--mute:#8b97a6;--line:#243040;--gold:#c9a56a;--up:#8fca8a;--down:#e07a72;--cyan:#7ec8c0}
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--ink);font-family:"IBM Plex Mono",ui-monospace,monospace;overflow-x:hidden}
+  button,input,select{font:inherit;color:inherit}
+  button{cursor:pointer}
+  button:active{scale:.96}
+  header{border-bottom:1px solid var(--line)}
+  .bar{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;padding:12px 16px}
+  h1{margin:0;font-family:Newsreader,Georgia,serif;font-size:28px;font-weight:650;line-height:1}
+  h1 i{color:var(--gold);font-style:italic}
+  .kicker{margin:0 0 4px;color:var(--gold);font-size:12px;letter-spacing:.14em}
+  .sub{margin:6px 0 0;color:var(--mute);font-size:12px}
+  .go{min-height:44px;border:0;background:var(--gold);color:var(--bg);padding:0 16px;font-size:12px;font-weight:600;letter-spacing:.14em}
+  .go:disabled{opacity:.55}
+  .clocks{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--line)}
+  .clock{padding:12px 16px}
+  .clock+.clock{border-left:1px solid var(--line)}
+  .lbl{margin:0;color:var(--mute);font-size:12px;letter-spacing:.14em}
+  .time{margin:4px 0 0;font-family:Newsreader,Georgia,serif;font-size:28px;font-variant-numeric:tabular-nums}
+  .note{margin:4px 0 0;color:var(--mute);font-size:12px}
+  .tape-window{overflow:hidden;border-bottom:1px solid var(--line);max-width:100%}
+  .tape-track{display:flex;width:max-content;animation:marquee 80s linear infinite}
+  .tape-window:hover .tape-track{animation-play-state:paused}
+  @keyframes marquee{from{transform:translate3d(0,0,0)}to{transform:translate3d(-50%,0,0)}}
+  @media(prefers-reduced-motion:reduce){.tape-track{animation:none}.tape-window{overflow-x:auto}}
+  .cell{display:flex;align-items:baseline;gap:8px;border:0;border-right:1px solid var(--line);background:transparent;color:inherit;padding:4px 8px;text-align:left;font-size:12px;white-space:nowrap}
+  .cell.on{background:var(--panel);color:var(--gold)}
+  .sym{color:var(--mute);letter-spacing:.08em}
+  .px{font-variant-numeric:tabular-nums}
+  .up{color:var(--up)}.down{color:var(--down)}.mute{color:var(--mute)}.gold{color:var(--gold)}.cyan{color:var(--cyan)}
+  .flash-up{animation:fu .7s ease-out}.flash-down{animation:fd .7s ease-out}
+  @keyframes fu{from{background:color-mix(in srgb,var(--up) 28%,transparent)}to{background:transparent}}
+  @keyframes fd{from{background:color-mix(in srgb,var(--down) 28%,transparent)}to{background:transparent}}
+  .find{display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:8px 12px;border-bottom:1px solid var(--line)}
+  .find input{min-height:44px;flex:1;min-width:160px;border:1px solid var(--line);background:var(--bg);padding:0 10px}
+  .picks{display:flex;flex-wrap:wrap;gap:4px;padding:0 12px 8px;border-bottom:1px solid var(--line)}
+  .pick{border:1px solid var(--line);background:transparent;padding:4px 8px;font-size:12px}
+  .pick.on{border-color:var(--gold);background:var(--gold);color:var(--bg)}
+  .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;padding:12px}
+  @media(min-width:900px){.kpis{grid-template-columns:repeat(8,1fr)}}
+  .kpi{border:1px solid var(--line);background:var(--panel);padding:8px 10px}
+  .kpi b{display:block;color:var(--mute);font-size:11px;font-weight:500;letter-spacing:.08em}
+  .kpi span{display:block;margin-top:4px;font-family:Newsreader,Georgia,serif;font-size:20px;font-variant-numeric:tabular-nums}
+  .grid{display:grid;gap:12px;padding:0 12px 12px}
+  @media(min-width:1024px){.grid{grid-template-columns:1.4fr .8fr}}
+  .panel{min-width:0;border:1px solid var(--line);background:var(--panel);overflow:hidden}
+  .ph{display:flex;align-items:center;justify-content:space-between;gap:8px;border-bottom:1px solid var(--line);padding:8px 12px;color:var(--gold);font-size:12px;letter-spacing:.12em}
+  .ph select{min-height:44px;border:1px solid var(--line);background:var(--bg);padding:0 8px;letter-spacing:0}
+  .tfs{display:flex;gap:6px}
+  .tfs button{min-height:44px;border:1px solid var(--line);background:transparent;color:var(--mute);padding:0 8px}
+  .tfs button.on{border-color:var(--gold);color:var(--gold)}
+  iframe{display:block;width:100%;max-width:100%;height:280px;border:0;background:var(--panel)}
+  @media(min-width:1024px){iframe{height:360px}}
+  svg.candles{display:block;width:100%;height:140px}
+  .pad{padding:12px}
+  .ask{display:flex;gap:8px;margin-top:8px}
+  .ask input{min-height:44px;flex:1;min-width:0;border:1px solid var(--line);background:var(--bg);padding:0 10px}
+  .ask button,.linkish{min-height:44px;border:0;background:var(--gold);color:var(--bg);padding:0 12px;font-size:12px;font-weight:600;letter-spacing:.12em}
+  .linkish{display:inline-block;margin-top:8px;background:transparent;color:var(--cyan);padding:0}
+  .read{font-family:Newsreader,Georgia,serif;font-size:16px;line-height:1.45}
+  ul{list-style:none;margin:8px 0 0;padding:0}
+  li{border-bottom:1px solid var(--line);padding:8px 0;font-family:Newsreader,Georgia,serif;font-size:15px;line-height:1.35}
+  table{width:100%;border-collapse:collapse;font-size:12px}
+  th,td{text-align:left;padding:8px 6px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{color:var(--mute);font-weight:500}
+  td button{border:0;background:transparent;color:var(--gold);padding:8px 0}
+  .why{font-family:Newsreader,Georgia,serif;font-size:14px;line-height:1.35}
+  .foot{padding:0 12px 24px;color:var(--mute);font-size:12px}
+  .err{margin:12px;border:1px solid var(--down);color:var(--down);padding:10px}
+</style>
 </head>
 <body>
-  <header>
+<header>
+  <div class="bar">
     <div>
-      <h1>Calder <span>Split-Clock</span></h1>
-      <div class="sub" id="meta">loading desk…</div>
+      <p class="kicker">AGENTIC TAPE · TWO CLOCKS</p>
+      <h1>Calder <i>Split-Clock</i></h1>
+      <p class="sub" id="status">Connecting to your Calder…</p>
     </div>
-    <div>
-      <button onclick="runScan()">RUN ONE CYCLE</button>
+    <button class="go" id="go" type="button">RUN CYCLE</button>
+  </div>
+  <div class="clocks">
+    <div class="clock">
+      <p class="lbl">WALL STREET</p>
+      <p class="time" id="wall">--:--:--</p>
+      <p class="note" id="wallnote">Waiting for the session</p>
     </div>
-  </header>
-  <main>
-    <div class="card">
-      <div class="kvs" id="book"></div>
+    <div class="clock">
+      <p class="lbl">CHAIN · 7×24</p>
+      <p class="time" id="utc">--:--:--</p>
+      <p class="note" id="chainnote">Coinbase socket</p>
     </div>
-    <div class="grid">
-      <div>
-        <div class="card">
-          <div class="pill">TICKETS THIS CYCLE</div>
-          <div id="tickets"></div>
-        </div>
-        <div class="card">
-          <div class="pill">HEADLINES IN THE ROOM</div>
-          <div id="news"></div>
-        </div>
-      </div>
-      <div>
-        <div class="card">
-          <div class="pill">OPEN BOOK</div>
-          <div id="open"></div>
-        </div>
-        <div class="card">
-          <div class="pill">LEDGER TAIL</div>
-          <div id="log"></div>
-        </div>
-      </div>
+  </div>
+</header>
+<div class="tape-window" id="tape"></div>
+<div class="find">
+  <label class="lbl" for="find">FIND</label>
+  <input id="find" placeholder="Search a name or a headline"/>
+</div>
+<div class="picks" id="picks"></div>
+<div class="kpis" id="kpis"></div>
+<p class="err" id="err" hidden></p>
+<div class="grid">
+  <section class="panel">
+    <div class="ph">
+      <label>CHART <select id="symsel"></select></label>
+      <span class="tfs" id="tfs"></span>
     </div>
-  </main>
-  <footer>Wren Calder · paper desk · tokenized US stocks · two clocks, one gate · #BitgetHackathon</footer>
-  <script>
-    const $ = (id) => document.getElementById(id);
-    function money(n){ return (n<0?'-':'') + '$' + Math.abs(n).toFixed(2); }
-    async function boot(){
-      const h = await fetch('/api/health').then(r=>r.json());
-      $('meta').textContent = `${h.builder}  ·  ${h.ny}  ·  session ${h.session}  ·  cash open in ${h.hours_to_cash_open}h  ·  ${h.mode}`;
-      await refreshLog();
-    }
-    async function refreshLog(){
-      const data = await fetch('/api/log?limit=12').then(r=>r.json());
-      $('log').innerHTML = `<table><tr><th>type</th><th>sym</th><th>side</th><th>note</th></tr>${
-        (data.rows||[]).slice().reverse().map(r=>`<tr>
-          <td>${r.type||''}</td><td>${r.symbol||''}</td>
-          <td class="${r.side||''}">${r.side||r.exit_why||''}</td>
-          <td>${(r.reason||r.exit_why||r.reject_reason||'').slice(0,90)}</td>
-        </tr>`).join('')
-      }</table>`;
-    }
-    async function runScan(){
-      $('meta').textContent = 'scanning both clocks…';
-      const d = await fetch('/api/scan').then(r=>r.json());
-      $('meta').textContent = `${d.ny_time}  ·  ${d.session.label}  ·  liq ${d.session.liquidity}  ·  feed ${d.snapshot.source}`;
-      const b = d.book;
-      $('book').innerHTML = [
-        ['equity', money(b.equity)],
-        ['cash', money(b.cash)],
-        ['realized', money(b.realized_pnl)],
-        ['win rate', (b.win_rate*100).toFixed(0)+'%'],
-        ['open', b.open.length],
-        ['decisions', b.decisions],
-        ['accepted', b.accepted],
-        ['session', d.session.code],
-      ].map(([l,v])=>`<div class="kv"><div class="l">${l}</div><div class="v">${v}</div></div>`).join('');
-      $('tickets').innerHTML = `<table><tr><th>sym</th><th>side</th><th>regime</th><th>why</th></tr>${
-        d.tickets.map(t=>`<tr>
-          <td>${t.symbol}</td>
-          <td class="${t.side}">${t.accepted?t.side:'WAIT'}</td>
-          <td>${t.regime}</td>
-          <td class="reason">${t.reason}</td>
-        </tr>`).join('')
-      }</table>`;
-      $('news').innerHTML = `<table>${
-        d.snapshot.headlines.map(h=>`<tr><td class="pill">${h.kind}</td><td>${h.title}</td></tr>`).join('')
-      }</table>`;
-      $('open').innerHTML = b.open.length ? `<table><tr><th>sym</th><th>side</th><th>pnl</th></tr>${
-        b.open.map(p=>`<tr><td>${p.symbol}</td><td class="${p.side}">${p.side}</td><td>${p.pnl_pct}%</td></tr>`).join('')
-      }</table>` : '<div class="sub">flat. standing down is a position.</div>';
-      await refreshLog();
-    }
-    boot();
-  </script>
+    <iframe id="tv" title="TradingView chart"></iframe>
+    <div class="ph"><span id="chainlabel">CHAIN CANDLES · BTC · COINBASE</span><span class="mute" id="chartnote">loading</span></div>
+    <div id="candles"></div>
+  </section>
+  <aside class="panel pad">
+    <p class="lbl gold">ASK CALDER</p>
+    <form class="ask" id="askform">
+      <input id="askq" placeholder="Why is COIN waiting?"/>
+      <button type="submit">ASK</button>
+    </form>
+    <button class="linkish" id="analyze" type="button">ANALYZE NVDA</button>
+    <p class="read" id="answer">Ask about any name, the session, or the wire. Calder will not invent a ticket.</p>
+    <p class="note">Paper only. No live order, and no invented win rate.</p>
+    <p class="lbl gold" style="margin-top:16px">AGENT READ</p>
+    <p class="read" id="read">Press RUN CYCLE. Calder names the regime for each stock. Cash hours stay mostly NO_TRADE unless a real catalyst is on the wire.</p>
+    <p class="lbl gold" style="margin-top:16px">WIRE</p>
+    <ul id="wire"></ul>
+  </aside>
+</div>
+<section class="panel" style="margin:0 12px 12px">
+  <div class="ph"><span>CYCLE BLOTTER · PAPER ONLY</span><span class="mute" id="stamp">Not run yet</span></div>
+  <div style="overflow-x:auto">
+    <table>
+      <thead><tr><th>Symbol</th><th>Last</th><th>Change</th><th>Call</th><th>Regime</th><th>Why</th></tr></thead>
+      <tbody id="rows"></tbody>
+    </table>
+  </div>
+</section>
+<p class="foot">Win rate counts closed paper tickets only. NO_TRADE is not a loss. Bitcoin, Ether, and Solana move live. Stocks update when you press RUN CYCLE, from your own Calder.</p>
+<script>
+const $ = (id) => document.getElementById(id);
+const NAMES = [
+  ["BTC","Bitcoin"],["ETH","Ether"],["SOL","Solana"],
+  ["NVDA","NVIDIA"],["TSLA","Tesla"],["AAPL","Apple"],["MSFT","Microsoft"],
+  ["AMZN","Amazon"],["META","Meta"],["AMD","AMD"],["GOOGL","Alphabet"],
+  ["NFLX","Netflix"],["AVGO","Broadcom"],["PLTR","Palantir"],["COIN","Coinbase"],
+  ["MSTR","MicroStrategy"],["ARM","Arm"],["INTC","Intel"],["BABA","Alibaba"],["QQQ","Nasdaq 100"]
+];
+const CHAINS = ["BTC","ETH","SOL"];
+const RANK = NAMES.map((n) => n[0]);
+const quotes = new Map();
+let focus = "NVDA";
+let tf = "15";
+let session = null;
+let book = null;
+let wires = [];
+let verdicts = [];
+let candles = [];
+let query = "";
+const TFS = ["5","15","60","D"];
+
+function money(n) {
+  const x = Number(n);
+  if (!Number.isFinite(x)) return "—";
+  return x.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+}
+function signed(n) {
+  const x = Number(n) || 0;
+  return (x >= 0 ? "+" : "") + x.toFixed(2) + "%";
+}
+function tvSymbol(sym) {
+  if (sym === "BTC") return "COINBASE:BTCUSD";
+  if (sym === "ETH") return "COINBASE:ETHUSD";
+  if (sym === "SOL") return "COINBASE:SOLUSD";
+  if (sym === "BABA") return "NYSE:BABA";
+  return "NASDAQ:" + sym;
+}
+function nameOf(sym) {
+  const row = NAMES.find((n) => n[0] === sym);
+  return row ? row[1] : sym;
+}
+function clock(date, zone) {
+  return new Intl.DateTimeFormat("en-GB", { timeZone: zone, hour: "2-digit", minute: "2-digit", second: "2-digit", hourCycle: "h23" }).format(date);
+}
+function paintClocks() {
+  const now = new Date();
+  $("wall").textContent = clock(now, "America/New_York");
+  $("utc").textContent = clock(now, "UTC");
+  if (!session) return;
+  const parts = new Intl.DateTimeFormat("en-US", { timeZone: "America/New_York", hour: "2-digit", minute: "2-digit", hourCycle: "h23", weekday: "short" }).formatToParts(now);
+  const get = (t) => parts.find((p) => p.type === t)?.value || "";
+  const mins = Number(get("hour")) * 60 + Number(get("minute"));
+  let extra = session.label || session.code || "";
+  if (session.cash_open) {
+    const left = 16 * 60 - mins;
+    extra += " · closes in " + Math.floor(left / 60) + "h " + (left % 60) + "m";
+  } else if (session.hours_to_cash_open != null) {
+    extra += " · cash opens in " + Number(session.hours_to_cash_open).toFixed(1) + "h";
+  }
+  $("wallnote").textContent = extra + (session.liquidity ? " · liq " + session.liquidity : "");
+}
+function ordered() {
+  return [...quotes.values()].sort((a, b) => {
+    const ia = RANK.indexOf(a.symbol);
+    const ib = RANK.indexOf(b.symbol);
+    return (ia < 0 ? 99 : ia) - (ib < 0 ? 99 : ib);
+  });
+}
+let tapeKey = "";
+function paintTape() {
+  const items = ordered();
+  const key = items.map((q) => q.symbol).join(",");
+  if (!items.length) {
+    $("tape").innerHTML = '<p class="note" style="padding:6px 12px">Waiting for prices…</p>';
+    tapeKey = "";
+    return;
+  }
+  if (key !== tapeKey) {
+    tapeKey = key;
+    const one = () => '<button class="cell" type="button"><span class="sym"></span><span class="px"></span><span class="ch"></span></button>';
+    const html = items.map(one).join("");
+    $("tape").innerHTML = '<div class="tape-track"><div style="display:flex">' + html + '</div><div style="display:flex" aria-hidden="true">' + html + "</div></div>";
+  }
+  const groups = $("tape").querySelectorAll(".tape-track > div");
+  groups.forEach((group, gi) => {
+    [...group.children].forEach((b, i) => {
+      const q = items[i];
+      if (!q) return;
+      b.dataset.sym = q.symbol;
+      b.classList.toggle("on", q.symbol === focus);
+      b.querySelector(".sym").textContent = q.symbol;
+      const px = b.querySelector(".px");
+      px.textContent = money(q.price);
+      px.className = "px" + (q.flash === "up" ? " flash-up" : q.flash === "down" ? " flash-down" : "");
+      const ch = b.querySelector(".ch");
+      ch.textContent = signed(q.change_pct);
+      ch.className = "ch " + (q.change_pct >= 0 ? "up" : "down");
+      if (gi === 0 && !b.dataset.bound) {
+        b.dataset.bound = "1";
+        b.addEventListener("click", () => setFocus(q.symbol));
+      }
+    });
+  });
+}
+function visibleNames() {
+  const q = query.trim().toLowerCase();
+  return NAMES.filter((n) => !q || n[0].toLowerCase().includes(q) || n[1].toLowerCase().includes(q));
+}
+function paintPicks() {
+  const names = visibleNames();
+  $("picks").innerHTML = names.length
+    ? names.map((n) => '<button class="pick' + (n[0] === focus ? " on" : "") + '" type="button" data-sym="' + n[0] + '">' + n[0] + "</button>").join("")
+    : '<p class="note">No name matches that search.</p>';
+  $("picks").querySelectorAll("button").forEach((b) => b.addEventListener("click", () => setFocus(b.dataset.sym)));
+  $("symsel").innerHTML = NAMES.map((n) => '<option value="' + n[0] + '">' + n[0] + " · " + n[1] + "</option>").join("");
+  $("symsel").value = focus;
+}
+function setFocus(sym) {
+  if (!RANK.includes(sym)) sym = "NVDA";
+  const changedChain = CHAINS.includes(sym) !== CHAINS.includes(focus) || (CHAINS.includes(sym) && sym !== focus);
+  focus = sym;
+  $("analyze").textContent = "ANALYZE " + sym;
+  $("chainlabel").textContent = "CHAIN CANDLES · " + (CHAINS.includes(sym) ? sym : "BTC") + " · COINBASE";
+  $("tv").src = "https://s.tradingview.com/widgetembed/?symbol=" + encodeURIComponent(tvSymbol(sym)) + "&interval=" + tf + "&theme=dark&style=1&timezone=America%2FNew_York&hideideas=1&withdateranges=0";
+  paintPicks();
+  paintTape();
+  const row = verdicts.find((v) => v.symbol === sym);
+  if (row) $("read").textContent = sym + " is " + row.side + " · " + row.regime + ". " + (row.reason || "");
+  else if (CHAINS.includes(sym)) $("read").textContent = nameOf(sym) + " is the chain clock, not an equity ticket. It tells Calder when a stock is only wearing crypto beta.";
+  if (changedChain) loadCandles();
+}
+function paintTfs() {
+  $("tfs").innerHTML = TFS.map((t) => '<button type="button" class="' + (t === tf ? "on" : "") + '" data-tf="' + t + '">' + (t === "D" ? "1D" : t) + "</button>").join("");
+  $("tfs").querySelectorAll("button").forEach((b) => b.addEventListener("click", () => { tf = b.dataset.tf; paintTfs(); setFocus(focus); }));
+}
+function paintKpis() {
+  const b = book || {};
+  const rows = [
+    ["EQUITY", b.equity != null ? "$" + money(b.equity) : "—"],
+    ["CASH", b.cash != null ? "$" + money(b.cash) : "—"],
+    ["REALIZED", b.realized_pnl != null ? "$" + money(b.realized_pnl) : "—"],
+    ["OPEN", b.open ? b.open.length : 0],
+    ["DECISIONS", b.decisions ?? "—"],
+    ["ACCEPTED", b.accepted ?? "—"],
+    ["CLOSED", b.closed_n ?? "—"],
+    ["WIN CLOSED", b.closed_n ? Math.round((b.win_rate || 0) * 100) + "%" : "n/a"],
+  ];
+  $("kpis").innerHTML = rows.map((r) => '<div class="kpi"><b>' + r[0] + "</b><span>" + r[1] + "</span></div>").join("");
+}
+function paintWire() {
+  const q = query.trim().toLowerCase();
+  const list = wires.filter((h) => !q || (h.title || "").toLowerCase().includes(q) || (h.symbol || "").toLowerCase().includes(q));
+  $("wire").innerHTML = list.length
+    ? list.slice(0, 6).map((h) => '<li><span class="cyan">' + (h.kind || "wire") + "</span> " + (h.title || "") + "</li>").join("")
+    : "<li class='mute'>" + (wires.length ? "No headline matches that search." : "Headlines arrive with RUN CYCLE.") + "</li>";
+}
+function paintRows() {
+  if (!verdicts.length) {
+    $("rows").innerHTML = '<tr><td colspan="6" class="mute">Press RUN CYCLE. During US cash hours most calls are NO_TRADE. That is the rule.</td></tr>';
+    return;
+  }
+  $("rows").innerHTML = verdicts.map((v) => {
+    const q = quotes.get(v.symbol);
+    const side = v.side || "NO_TRADE";
+    const cls = side === "BUY" ? "up" : side === "SELL" ? "down" : "mute";
+    return "<tr><td><button type='button' data-sym='" + v.symbol + "'>" + v.symbol + "</button></td><td>" + (q ? money(q.price) : "—") + "</td><td class='" + ((q && q.change_pct < 0) ? "down" : "up") + "'>" + (q ? signed(q.change_pct) : "—") + "</td><td class='" + cls + "'>" + side + "</td><td>" + (v.regime || "") + "</td><td class='why'>" + (v.reason || "") + "</td></tr>";
+  }).join("");
+  $("rows").querySelectorAll("button").forEach((b) => b.addEventListener("click", () => setFocus(b.dataset.sym)));
+}
+function answerQuestion(text) {
+  const q = (text || "").trim();
+  if (!q) return "Ask about a symbol, the session, or a headline. Calder will not invent a trade.";
+  const up = q.toUpperCase();
+  const named = NAMES.find((n) => new RegExp("\\b" + n[0] + "\\b").test(up) || up.includes(n[1].toUpperCase()));
+  if (/win rate|pnl|profit|guaranteed/i.test(q)) return "There is no live win rate. A score exists only after a paper ticket closes. NO_TRADE is the gate, not a loss. Calder does not send an order.";
+  if (named && CHAINS.includes(named[0])) {
+    const row = quotes.get(named[0]);
+    const px = row ? money(row.price) + " (" + signed(row.change_pct) + ")" : "still printing";
+    return named[1] + " (" + named[0] + ") is the chain clock at " + px + ". It is not an equity ticket.";
+  }
+  const verdict = named ? verdicts.find((v) => v.symbol === named[0]) : null;
+  if (verdict) return verdict.symbol + " is " + (verdict.side || "NO_TRADE") + " · " + (verdict.regime || "") + ". " + (verdict.reason || "No extra note.") + (verdict.contra ? " Contra: " + verdict.contra : "");
+  if (named) return "No cycle yet for " + named[0] + ". Press RUN CYCLE, then ask again.";
+  if (/cash|session|clock|gate|hours/i.test(q) && session) return (session.label || session.code) + ". " + (session.note || "") + (session.cash_open ? " Cash is open, so the default is NO_TRADE unless a named catalyst is on the wire." : " Cash is closed. A real catalyst can become INFO_PRICE. A move that only tracks Bitcoin is CRYPTO_BLEED.");
+  if (/bleed|crypto|costume/i.test(q)) return "CRYPTO_BLEED means the stock is moving with the chain and has no equity headline of its own. Calder stands down.";
+  if (/headline|news|wire|fed|tariff/i.test(q)) {
+    const words = q.toLowerCase().split(/\s+/).filter((w) => w.length > 3);
+    const hit = wires.find((h) => words.some((w) => (h.title || "").toLowerCase().includes(w))) || wires[0];
+    return hit ? (hit.kind || "wire") + ": " + hit.title : "No headline is loaded. Press RUN CYCLE.";
+  }
+  if (!verdicts.length) return "Press RUN CYCLE first. Then name a symbol, such as TSLA, COIN, or MSTR.";
+  const tickets = verdicts.filter((v) => v.side && v.side !== "NO_TRADE" && v.side !== "WAIT");
+  return (session && (session.label || session.code) || "Session") + ". " + (tickets.length ? tickets.map((t) => t.side + " " + t.symbol).join(", ") : "No paper ticket on this tape.") + " Name a symbol to go deeper.";
+}
+function drawCandles() {
+  const view = candles.slice(-70);
+  const label = CHAINS.includes(focus) ? focus : "BTC";
+  if (view.length < 2) {
+    $("candles").innerHTML = '<p class="note" style="padding:12px">Waiting for Coinbase candles…</p>';
+    return;
+  }
+  const hi = Math.max(...view.map((b) => b.high));
+  const lo = Math.min(...view.map((b) => b.low));
+  const span = hi - lo || 1;
+  const W = 700, H = 140;
+  const slot = W / view.length;
+  const body = view.map((b, i) => {
+    const x = i * slot + slot / 2;
+    const y = (v) => ((hi - v) / span) * (H - 10) + 5;
+    const up = b.close >= b.open;
+    const top = Math.min(y(b.open), y(b.close));
+    const h = Math.max(1, Math.abs(y(b.close) - y(b.open)));
+    const color = up ? "var(--up)" : "var(--down)";
+    return '<line x1="' + x + '" x2="' + x + '" y1="' + y(b.high) + '" y2="' + y(b.low) + '" stroke="' + color + '" stroke-width="1"/><rect x="' + (x - slot * 0.28) + '" y="' + top + '" width="' + (slot * 0.56) + '" height="' + h + '" fill="' + color + '"/>';
+  }).join("");
+  $("candles").innerHTML = '<svg class="candles" viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="' + label + ' one minute candles">' + body + "</svg>";
+}
+function onChainPrice(product, price) {
+  const symbol = product.slice(0, 3);
+  const prev = quotes.get(symbol);
+  const open = prev && prev.open24 ? prev.open24 : price;
+  const change = open ? ((price - open) / open) * 100 : (prev ? prev.change_pct : 0);
+  quotes.set(symbol, { symbol, price, change_pct: change, open24: open, live: true, flash: prev && price > prev.price ? "up" : prev && price < prev.price ? "down" : undefined });
+  const chain = CHAINS.includes(focus) ? focus : "BTC";
+  if (symbol === chain && candles.length) {
+    const bucket = Math.floor(Date.now() / 60000) * 60;
+    const last = candles[candles.length - 1];
+    if (last.time !== bucket) candles.push({ time: bucket, open: price, high: price, low: price, close: price });
+    else { last.high = Math.max(last.high, price); last.low = Math.min(last.low, price); last.close = price; }
+    if (candles.length > 120) candles.shift();
+    drawCandles();
+  }
+  $("chainnote").textContent = "Live · BTC " + money(quotes.get("BTC")?.price) + " · ETH " + money(quotes.get("ETH")?.price) + " · SOL " + money(quotes.get("SOL")?.price);
+  paintTape();
+}
+async function loadCandles() {
+  const chain = CHAINS.includes(focus) ? focus : "BTC";
+  try {
+    const res = await fetch("https://api.exchange.coinbase.com/products/" + chain + "-USD/candles?granularity=60");
+    const rows = await res.json();
+    candles = rows.map((r) => ({ time: r[0], low: r[1], high: r[2], open: r[3], close: r[4] })).filter((c) => Number.isFinite(c.close)).sort((a, b) => a.time - b.time).slice(-90);
+    $("chartnote").textContent = "live";
+    drawCandles();
+  } catch {
+    $("chartnote").textContent = "delayed";
+  }
+}
+function connectSocket() {
+  const ws = new WebSocket("wss://ws-feed.exchange.coinbase.com");
+  ws.onopen = () => {
+    $("status").textContent = "Coinbase live · stocks update on RUN CYCLE";
+    ws.send(JSON.stringify({ type: "subscribe", product_ids: ["BTC-USD", "ETH-USD", "SOL-USD"], channels: ["ticker"] }));
+  };
+  ws.onclose = () => { $("chainnote").textContent = "Socket reconnecting…"; setTimeout(connectSocket, 2000); };
+  ws.onmessage = (ev) => {
+    let msg;
+    try { msg = JSON.parse(ev.data); } catch { return; }
+    if (msg.type !== "ticker" || !msg.price) return;
+    const symbol = (msg.product_id || "").slice(0, 3);
+    const open = Number(msg.open_24h || msg.price);
+    const held = quotes.get(symbol);
+    if (held) held.open24 = held.open24 || open;
+    else quotes.set(symbol, { symbol, price: Number(msg.price), change_pct: 0, open24: open, live: true });
+    const row = quotes.get(symbol);
+    if (row) row.open24 = row.open24 || open;
+    onChainPrice(msg.product_id, Number(msg.price));
+  };
+}
+async function boot() {
+  try {
+    const res = await fetch("/api/health");
+    const j = await res.json();
+    session = { code: j.session, label: j.session, cash_open: j.session === "CASH", liquidity: "", hours_to_cash_open: j.hours_to_cash_open };
+    $("status").textContent = (j.ny || "") + " · " + (j.session || "") + " · your Calder is on";
+  } catch {
+    $("err").hidden = false;
+    $("err").textContent = "Calder is not running in this browser tab. Do not double-click the file. Open http://127.0.0.1:8000 after the black window is running.";
+  }
+  paintClocks();
+}
+async function runCycle() {
+  const btn = $("go");
+  btn.disabled = true;
+  btn.textContent = "RUNNING";
+  $("err").hidden = true;
+  try {
+    const res = await fetch("/api/scan");
+    if (!res.ok) throw new Error("scan " + res.status);
+    const j = await res.json();
+    const hours = session && session.hours_to_cash_open;
+    session = j.session || session;
+    if (session && hours != null && session.hours_to_cash_open == null) session.hours_to_cash_open = hours;
+    book = j.book || null;
+    wires = (j.snapshot && j.snapshot.headlines) || [];
+    verdicts = j.verdicts || [];
+    const qmap = (j.snapshot && j.snapshot.quotes) || {};
+    Object.values(qmap).forEach((q) => {
+      if (!q || !q.symbol) return;
+      if (CHAINS.includes(q.symbol)) return;
+      const prev = quotes.get(q.symbol);
+      quotes.set(q.symbol, {
+        symbol: q.symbol,
+        price: q.price,
+        change_pct: q.change_pct,
+        live: false,
+        flash: prev && q.price > prev.price ? "up" : prev && q.price < prev.price ? "down" : undefined,
+      });
+    });
+    const acted = (j.verdicts || []).filter((v) => v.side && v.side !== "NO_TRADE" && v.side !== "WAIT").length;
+    $("stamp").textContent = (j.ny_time || "") + " · " + acted + " tickets";
+    const lead = wires[0] ? wires[0].title : "No fresh wire.";
+    $("read").textContent = (session.label || session.code || "Session") + ". " + (session.note || "") + " " + acted + " names cleared a ticket. Lead wire: " + lead;
+    $("status").textContent = (j.ny_time || "") + " · " + (session.code || "") + " · " + ((j.snapshot && j.snapshot.source) || "scan");
+    paintKpis();
+    paintWire();
+    paintRows();
+    paintTape();
+    paintClocks();
+  } catch (e) {
+    $("err").hidden = false;
+    $("err").textContent = "Cycle failed. Keep this page at http://127.0.0.1:8000 — do not open the file itself. " + (e.message || "");
+  } finally {
+    btn.disabled = false;
+    btn.textContent = "RUN CYCLE";
+  }
+}
+
+$("go").addEventListener("click", runCycle);
+$("find").addEventListener("input", () => { query = $("find").value; paintPicks(); paintWire(); });
+$("symsel").addEventListener("change", () => setFocus($("symsel").value));
+$("askform").addEventListener("submit", (e) => { e.preventDefault(); $("answer").textContent = answerQuestion($("askq").value); });
+$("analyze").addEventListener("click", () => { $("askq").value = "Analyze " + focus; $("answer").textContent = answerQuestion("Analyze " + focus + " " + nameOf(focus)); });
+paintTfs();
+paintPicks();
+setFocus("NVDA");
+paintKpis();
+paintRows();
+paintWire();
+setInterval(paintClocks, 1000);
+boot();
+loadCandles();
+connectSocket();
+</script>
 </body>
 </html>
